@@ -1,0 +1,27 @@
+name: Reentrenar modelo al hacer push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-train:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repositorio
+      uses: actions/checkout@v2
+
+    - name: Configurar Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Instalar dependencias
+      run: |
+        pip install -r requirements.txt
+
+    - name: Ejecutar reentrenamiento
+      run: |
+        python reentrenamiento.py
